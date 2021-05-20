@@ -13,8 +13,8 @@ const prog = sade("diff-purge [dir]", true).option(
   "Only delete the found __diff_output__ folders, but not the actual snapshots"
 );
 
-prog.action((dir) => {
-  main(dir);
+prog.action((dir, opts) => {
+  main(dir, opts);
 });
 
 prog.parse(process.argv);
@@ -22,8 +22,11 @@ prog.parse(process.argv);
 /**
  *
  * @param {string} dir
+ * @param {Record<string, boolean>} opts
  */
-function main(dir) {
+function main(dir, opts) {
+  const diffOnlyFlag = opts["diff-only"];
+
   const basedir = dir ? path.join(process.cwd(), dir) : process.cwd();
   const dirs = findDirsWithDiffOutput(basedir);
 
@@ -33,7 +36,7 @@ function main(dir) {
   }
 
   for (const dirToDelete of dirs) {
-    deleteFoundDiffs(dirToDelete);
+    deleteFoundDiffs(dirToDelete, diffOnlyFlag);
   }
 }
 
@@ -68,15 +71,18 @@ function findDirsWithDiffOutput(basedir) {
 /**
  *
  * @param {string} dirname
+ * @param {boolean} deleteDiffFolderOnly
  */
-function deleteFoundDiffs(dirname) {
-  const diffNames = readdirSync(path.join(dirname, DIFF_OUTPUT_FOLDER_NAME));
+function deleteFoundDiffs(dirname, deleteDiffFolderOnly) {
+  if (!deleteDiffFolderOnly) {
+    const diffNames = readdirSync(path.join(dirname, DIFF_OUTPUT_FOLDER_NAME));
 
-  const normalizedDiffNames = diffNames.map((name) => name.split(".")[0]);
+    const normalizedDiffNames = diffNames.map((name) => name.split(".")[0]);
 
-  for (const name of normalizedDiffNames) {
-    console.log(`Deletig file: ${path.join(dirname, name)}`);
-    unlinkSync(path.join(dirname, `${name}.snap.png`));
+    for (const name of normalizedDiffNames) {
+      console.log(`Deletig file: ${path.join(dirname, name)}`);
+      unlinkSync(path.join(dirname, `${name}.snap.png`));
+    }
   }
 
   rmSync(path.join(dirname, DIFF_OUTPUT_FOLDER_NAME), { recursive: true });
