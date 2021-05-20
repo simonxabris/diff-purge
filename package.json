@@ -1,13 +1,19 @@
 {
   "name": "diff-purge",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "",
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/simonxabris/diff-purge"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["testig", "cypress", "snapshot"],
+  "author": {
+    "name": "Ábris Simon"
+  },
   "license": "ISC",
   "dependencies": {
     "sade": "^1.7.4"
