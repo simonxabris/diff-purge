@@ -18,4 +18,4 @@ Run `npx diff-purge --help` for usage info.
 
 ### Flags
 
-- `-d | --diff-only`: If this flag is provided, it will only delete the `__diff_output__` directories it find, but not the actual snapshot files.
+- `-d | --diff-only`: If this flag is provided, it will only delete the `__diff_output__` directories it finds, but not the actual snapshot files.
