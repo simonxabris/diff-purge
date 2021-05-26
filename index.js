@@ -40,8 +40,8 @@ function main(dir, opts) {
     if (diffOnlyFlag === true) {
       deleteDiffOutputDirectory(dirToDelete);
     } else {
+      deleteFoundDiffs(dirToDelete);
     }
-    deleteFoundDiffs(dirToDelete);
   }
 }
 

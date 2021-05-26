@@ -23,5 +23,6 @@
     "kleur": "^4.1.4",
     "sade": "^1.7.4"
   },
+  "type": "module",
   "bin": "./index.mjs"
 }
